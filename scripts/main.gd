@@ -1,6 +1,7 @@
 extends Node
 
 var offline_popup_data: Dictionary = {}
+var _save_tick: int = 0
 
 func _ready() -> void:
 	_boot()
@@ -36,7 +37,10 @@ func _on_tick_timer_timeout() -> void:
 	GameState.decay_stability()
 	EventManager.try_fire_event()
 	EventManager.tick_event_countdown()
-	SaveManager.save()
+	_save_tick += 1
+	if _save_tick >= 30:
+		SaveManager.save()
+		_save_tick = 0
 
 func get_offline_popup_data() -> Dictionary:
 	return offline_popup_data
