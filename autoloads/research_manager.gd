@@ -83,10 +83,10 @@ func can_unlock(node_id: String) -> bool:
 	return true
 
 func unlock_node(node_id: String) -> void:
+	var cost_mult = _get_cost_multiplier()
 	if not can_unlock(node_id):
 		return
 	var node = nodes.get(node_id, {})
-	var cost_mult = _get_cost_multiplier()
 	GameState.add_resource("knowledge", -float(node.get("cost_knowledge", 0.0)) * cost_mult)
 	if float(node.get("cost_artifacts", 0)) > 0:
 		GameState.add_resource("artifacts", -float(node.get("cost_artifacts", 0)))
