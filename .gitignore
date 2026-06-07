@@ -1,9 +1,15 @@
 # Godot editor
 .godot/
 *.import
+*.uid
+*.translation
 
 # Export
 exports/
+export_presets.cfg
+
+# Superpowers tooling
+.superpowers/
 
 # OS
 .DS_Store
