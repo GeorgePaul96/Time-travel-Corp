@@ -38,17 +38,22 @@ func calculate_offline_rewards() -> Dictionary:
 		var amount = income[resource] * float(elapsed) * 0.5
 		if amount > 0.01:
 			rewards[resource] = snappedf(amount, 0.01)
-			GameState.add_resource(resource, amount)
+			# Write directly to avoid emitting state_changed per-resource during boot
+			if GameState.state.resources.has(resource):
+				GameState.state.resources[resource] = float(GameState.state.resources[resource]) + amount
+				if resource == "credits" and amount > 0.0:
+					GameState.state.total_credits_earned += amount
 	# Resolve all active missions as complete (TE is a lock, not consumed)
 	GameState.state.active_missions.clear()
 	GameState.state.resources.temporal_energy = GameState.state.resources.temporal_energy_max
 	# Reset all agent statuses to IDLE
 	for agent in GameState.state.agents:
 		agent.status = "IDLE"
+	GameState.state_changed.emit()
 	return {"elapsed_seconds": elapsed, "rewards": rewards}
 
 func _save_web(json_string: String) -> void:
-	var escaped = json_string.replace("\\", "\\\\").replace("'", "\\'")
+	var escaped = json_string.replace("\\", "\\\\").replace("'", "\\'").replace("\n", "\\n").replace("\r", "\\r")
 	JavaScriptBridge.eval("localStorage.setItem('" + SAVE_KEY + "', '" + escaped + "')")
 
 func _load_web() -> String:
