@@ -1,0 +1,356 @@
+<style>
+  body { background: #0a0f0a; color: #00ff41; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
+  h2 { color: #00ff41; text-transform: uppercase; letter-spacing: 4px; border-bottom: 1px solid #00ff4133; padding-bottom: 8px; margin-bottom: 4px; }
+  .subtitle { color: #00aa2a; margin-top: 0; margin-bottom: 20px; font-size: 13px; }
+
+  .tree-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  .category { display: flex; flex-direction: column; gap: 0; }
+
+  .cat-header {
+    text-align: center;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 6px 4px;
+    border-radius: 3px 3px 0 0;
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+  .cat-tm   { background: #002244; color: #44aaff; border: 1px solid #44aaff44; }
+  .cat-ae   { background: #002200; color: #44ff44; border: 1px solid #44ff4444; }
+  .cat-rm   { background: #221100; color: #ffaa44; border: 1px solid #ffaa4444; }
+  .cat-ts   { background: #220022; color: #ff44ff; border: 1px solid #ff44ff44; }
+  .cat-ce   { background: #221100; color: #ffff44; border: 1px solid #ffff4444; }
+
+  .node-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  .node {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 8px;
+    border: 1px solid;
+    font-size: 10px;
+    line-height: 1.4;
+    cursor: default;
+    transition: background 0.15s;
+  }
+  .node:hover { filter: brightness(1.3); }
+
+  .node-tm { border-color: #44aaff44; background: #001833; color: #aaddff; }
+  .node-ae { border-color: #44ff4444; background: #001800; color: #aaffaa; }
+  .node-rm { border-color: #ffaa4444; background: #1a0d00; color: #ffd088; }
+  .node-ts { border-color: #ff44ff44; background: #1a0018; color: #ffaaff; }
+  .node-ce { border-color: #ffff4444; background: #1a1a00; color: #ffffaa; }
+
+  .node-id   { font-size: 9px; opacity: 0.5; margin-bottom: 2px; }
+  .node-name { font-weight: bold; font-size: 11px; margin-bottom: 3px; }
+  .node-fx   { font-size: 10px; margin-bottom: 3px; }
+  .node-cost { font-size: 9px; opacity: 0.7; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 3px; margin-top: 2px; }
+
+  .connector { text-align: center; color: #00441055; font-size: 14px; line-height: 1; padding: 2px 0; width: 100%; }
+  .conn-tm { color: #44aaff33; }
+  .conn-ae { color: #44ff4433; }
+  .conn-rm { color: #ffaa4433; }
+  .conn-ts { color: #ff44ff33; }
+  .conn-ce { color: #ffff4433; }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; font-size: 10px; }
+  .leg-item { display: flex; align-items: center; gap: 6px; }
+  .leg-dot { width: 8px; height: 8px; border-radius: 1px; }
+</style>
+
+<h2>Research Tree — MVP (35 Nodes)</h2>
+<p class="subtitle">5 categories · nodes unlock top → bottom · cross-category deps noted in cost</p>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#44aaff"></div> Time Machines</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#44ff44"></div> Agent Efficiency</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#ffaa44"></div> Resource Multipliers</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#ff44ff"></div> Timeline Stability</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#ffff44"></div> Corporate Expansion</div>
+</div>
+
+<div class="tree-grid">
+
+  <!-- TIME MACHINES -->
+  <div class="category">
+    <div class="cat-header cat-tm">Time Machines</div>
+    <div class="node-wrap">
+      <div class="node node-tm">
+        <div class="node-id">TM-1</div>
+        <div class="node-name">Mark II Prototype</div>
+        <div class="node-fx">Mission TE cost −20%</div>
+        <div class="node-cost">100 K</div>
+      </div>
+      <div class="connector conn-tm">│</div>
+      <div class="node node-tm">
+        <div class="node-id">TM-2</div>
+        <div class="node-name">Mark III Engine</div>
+        <div class="node-fx">Max TE cap +1</div>
+        <div class="node-cost">300 K</div>
+      </div>
+      <div class="connector conn-tm">│</div>
+      <div class="node node-tm">
+        <div class="node-id">TM-3</div>
+        <div class="node-name">Quantum Stabilizer</div>
+        <div class="node-fx">Mission fail chance −10%</div>
+        <div class="node-cost">500 K + 50 A</div>
+      </div>
+      <div class="connector conn-tm">│</div>
+      <div class="node node-tm">
+        <div class="node-id">TM-4</div>
+        <div class="node-name">Dual-Core Drive</div>
+        <div class="node-fx">TE regen +50%</div>
+        <div class="node-cost">1,000 K + 100 A</div>
+      </div>
+      <div class="connector conn-tm">│</div>
+      <div class="node node-tm">
+        <div class="node-id">TM-5</div>
+        <div class="node-name">Mark IV Chrono</div>
+        <div class="node-fx">Max TE cap +3</div>
+        <div class="node-cost">2,000 K + 200 A</div>
+      </div>
+      <div class="connector conn-tm">│</div>
+      <div class="node node-tm">
+        <div class="node-id">TM-6</div>
+        <div class="node-name">Temporal Fleet</div>
+        <div class="node-fx">Run 2 missions simultaneously</div>
+        <div class="node-cost">5,000 K + 500 A</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AGENT EFFICIENCY -->
+  <div class="category">
+    <div class="cat-header cat-ae">Agent Efficiency</div>
+    <div class="node-wrap">
+      <div class="node node-ae">
+        <div class="node-id">AE-1</div>
+        <div class="node-name">Basic Training</div>
+        <div class="node-fx">All agents +5% Efficiency</div>
+        <div class="node-cost">200 K</div>
+      </div>
+      <div class="connector conn-ae">│</div>
+      <div class="node node-ae">
+        <div class="node-id">AE-2</div>
+        <div class="node-name">Field Handbook</div>
+        <div class="node-fx">All agents +5% Speed</div>
+        <div class="node-cost">200 K</div>
+      </div>
+      <div class="connector conn-ae">│</div>
+      <div class="node node-ae">
+        <div class="node-id">AE-3</div>
+        <div class="node-name">Advanced Training</div>
+        <div class="node-fx">All agents +10% Efficiency</div>
+        <div class="node-cost">500 K (needs AE-1)</div>
+      </div>
+      <div class="connector conn-ae">│</div>
+      <div class="node node-ae">
+        <div class="node-id">AE-4</div>
+        <div class="node-name">Rapid Deployment</div>
+        <div class="node-fx">All agents +10% Speed</div>
+        <div class="node-cost">500 K (needs AE-2)</div>
+      </div>
+      <div class="connector conn-ae">│</div>
+      <div class="node node-ae">
+        <div class="node-id">AE-5</div>
+        <div class="node-name">Specialist Curriculum</div>
+        <div class="node-fx">All agents +10% Luck</div>
+        <div class="node-cost">800 K (needs AE-3)</div>
+      </div>
+      <div class="connector conn-ae">│</div>
+      <div class="node node-ae">
+        <div class="node-id">AE-6</div>
+        <div class="node-name">Combat Resilience</div>
+        <div class="node-fx">All agents +15% Resilience</div>
+        <div class="node-cost">800 K (needs AE-4)</div>
+      </div>
+      <div class="connector conn-ae">│</div>
+      <div class="node node-ae">
+        <div class="node-id">AE-7</div>
+        <div class="node-name">Elite Operations</div>
+        <div class="node-fx">+15% Efficiency, +5% all stats</div>
+        <div class="node-cost">2,000 K (needs AE-5+6)</div>
+      </div>
+      <div class="connector conn-ae">│</div>
+      <div class="node node-ae">
+        <div class="node-id">AE-8</div>
+        <div class="node-name">Chrono Mastery</div>
+        <div class="node-fx">Agent XP gain +50%</div>
+        <div class="node-cost">5,000 K (needs AE-7)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOURCE MULTIPLIERS -->
+  <div class="category">
+    <div class="cat-header cat-rm">Resource Multipliers</div>
+    <div class="node-wrap">
+      <div class="node node-rm">
+        <div class="node-id">RM-1</div>
+        <div class="node-name">Acquisition Protocols</div>
+        <div class="node-fx">Credits from missions +25%</div>
+        <div class="node-cost">300 K</div>
+      </div>
+      <div class="connector conn-rm">│</div>
+      <div class="node node-rm">
+        <div class="node-id">RM-2</div>
+        <div class="node-name">Data Mining</div>
+        <div class="node-fx">Historical Data +50%</div>
+        <div class="node-cost">300 K</div>
+      </div>
+      <div class="connector conn-rm">│</div>
+      <div class="node node-rm">
+        <div class="node-id">RM-3</div>
+        <div class="node-name">Artifact Authentication</div>
+        <div class="node-fx">Artifact drop rate +10%</div>
+        <div class="node-cost">500 K (needs RM-1)</div>
+      </div>
+      <div class="connector conn-rm">│</div>
+      <div class="node node-rm">
+        <div class="node-id">RM-4</div>
+        <div class="node-name">Knowledge Synthesis</div>
+        <div class="node-fx">Knowledge from missions +30%</div>
+        <div class="node-cost">500 K (needs RM-2)</div>
+      </div>
+      <div class="connector conn-rm">│</div>
+      <div class="node node-rm">
+        <div class="node-id">RM-5</div>
+        <div class="node-name">Black Market Network</div>
+        <div class="node-fx">Sell Artifacts for 2× Credits</div>
+        <div class="node-cost">1,000 K + 100 A (needs RM-3)</div>
+      </div>
+      <div class="connector conn-rm">│</div>
+      <div class="node node-rm">
+        <div class="node-id">RM-6</div>
+        <div class="node-name">Historical Archives</div>
+        <div class="node-fx">HD from missions +100%</div>
+        <div class="node-cost">1,000 K (needs RM-4)</div>
+      </div>
+      <div class="connector conn-rm">│</div>
+      <div class="node node-rm">
+        <div class="node-id">RM-7</div>
+        <div class="node-name">Revenue Optimization</div>
+        <div class="node-fx">Credits from missions +50%</div>
+        <div class="node-cost">3,000 K (needs RM-5)</div>
+      </div>
+      <div class="connector conn-rm">│</div>
+      <div class="node node-rm">
+        <div class="node-id">RM-8</div>
+        <div class="node-name">Temporal Arbitrage</div>
+        <div class="node-fx">All resources +20%</div>
+        <div class="node-cost">8,000 K + 500 A (needs RM-7+6)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE STABILITY -->
+  <div class="category">
+    <div class="cat-header cat-ts">Timeline Stability</div>
+    <div class="node-wrap">
+      <div class="node node-ts">
+        <div class="node-id">TS-1</div>
+        <div class="node-name">Paradox Dampener</div>
+        <div class="node-fx">Stability decay −20%</div>
+        <div class="node-cost">200 K</div>
+      </div>
+      <div class="connector conn-ts">│</div>
+      <div class="node node-ts">
+        <div class="node-id">TS-2</div>
+        <div class="node-name">Event Mitigation</div>
+        <div class="node-fx">Event Stability damage −15%</div>
+        <div class="node-cost">300 K (needs TS-1)</div>
+      </div>
+      <div class="connector conn-ts">│</div>
+      <div class="node node-ts">
+        <div class="node-id">TS-3</div>
+        <div class="node-name">Temporal Anchor</div>
+        <div class="node-fx">Stability floor raised to 20</div>
+        <div class="node-cost">500 K (needs TS-1)</div>
+      </div>
+      <div class="connector conn-ts">│</div>
+      <div class="node node-ts">
+        <div class="node-id">TS-4</div>
+        <div class="node-name">Stabilizer Array</div>
+        <div class="node-fx">Stability regen +0.02/sec</div>
+        <div class="node-cost">800 K (needs TS-2)</div>
+      </div>
+      <div class="connector conn-ts">│</div>
+      <div class="node node-ts">
+        <div class="node-id">TS-5</div>
+        <div class="node-name">Quantum Buffer</div>
+        <div class="node-fx">Event Stability damage −30%</div>
+        <div class="node-cost">1,500 K (needs TS-4)</div>
+      </div>
+      <div class="connector conn-ts">│</div>
+      <div class="node node-ts">
+        <div class="node-id">TS-6</div>
+        <div class="node-name">Chrono Fortress</div>
+        <div class="node-fx">Stability floor raised to 40</div>
+        <div class="node-cost">3,000 K (needs TS-3+5)</div>
+      </div>
+      <div class="connector conn-ts">│</div>
+      <div class="node node-ts">
+        <div class="node-id">TS-7</div>
+        <div class="node-name">Temporal Immunity</div>
+        <div class="node-fx">Missions no longer drain Stability</div>
+        <div class="node-cost">8,000 K + 300 A (needs TS-6)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORPORATE EXPANSION -->
+  <div class="category">
+    <div class="cat-header cat-ce">Corp Expansion</div>
+    <div class="node-wrap">
+      <div class="node node-ce">
+        <div class="node-id">CE-1</div>
+        <div class="node-name">HR Optimization</div>
+        <div class="node-fx">Agent hire cost −20%; unlocks Tier 2 equipment</div>
+        <div class="node-cost">500 K</div>
+      </div>
+      <div class="connector conn-ce">│</div>
+      <div class="node node-ce">
+        <div class="node-id">CE-2</div>
+        <div class="node-name">Research Division</div>
+        <div class="node-fx">All research cost −25%</div>
+        <div class="node-cost">500 K</div>
+      </div>
+      <div class="connector conn-ce">│</div>
+      <div class="node node-ce">
+        <div class="node-id">CE-3</div>
+        <div class="node-name">Agent Cap I</div>
+        <div class="node-fx">Max agents +2</div>
+        <div class="node-cost">1,000 K (needs CE-1)</div>
+      </div>
+      <div class="connector conn-ce">│</div>
+      <div class="node node-ce">
+        <div class="node-id">CE-4</div>
+        <div class="node-name">Dept. Efficiency</div>
+        <div class="node-fx">All dept. bonuses +25%</div>
+        <div class="node-cost">1,500 K (needs CE-2)</div>
+      </div>
+      <div class="connector conn-ce">│</div>
+      <div class="node node-ce">
+        <div class="node-id">CE-5</div>
+        <div class="node-name">Agent Cap II</div>
+        <div class="node-fx">Max agents +2</div>
+        <div class="node-cost">3,000 K (needs CE-3)</div>
+      </div>
+      <div class="connector conn-ce">│</div>
+      <div class="node node-ce">
+        <div class="node-id">CE-6</div>
+        <div class="node-name">Tier 3 Equipment</div>
+        <div class="node-fx">Unlocks all Tier 3 gear slots</div>
+        <div class="node-cost">5,000 K + 200 A (needs CE-4)</div>
+      </div>
+    </div>
+  </div>
+
+</div>

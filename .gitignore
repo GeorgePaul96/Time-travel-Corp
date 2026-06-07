@@ -1,0 +1,10 @@
+# Godot editor
+.godot/
+*.import
+
+# Export
+exports/
+
+# OS
+.DS_Store
+Thumbs.db
