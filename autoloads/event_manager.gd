@@ -115,6 +115,8 @@ func _apply_outcome(outcome: Dictionary) -> void:
 					_end_first_mission(outcome.get("no_rewards", false))
 			"random_outcome":
 				var ro = outcome[key]
+				if not ro is Dictionary:
+					return
 				if randf() < float(ro.get("chance", 0.5)):
 					_apply_outcome(ro.get("success", {}))
 				else:
@@ -122,6 +124,48 @@ func _apply_outcome(outcome: Dictionary) -> void:
 			"knowledge_boost_5min":
 				_knowledge_boost_timer = 300.0
 				_knowledge_boost_mult = float(outcome[key])
+			"mission_delay":
+				# Add delay to time_remaining on first active mission
+				if not GameState.state.active_missions.is_empty():
+					GameState.state.active_missions[0].time_remaining = (
+						float(GameState.state.active_missions[0].time_remaining) + float(outcome[key])
+					)
+			"mission_fail_chance":
+				# Roll fail chance immediately; if fail, abort the first mission with no rewards
+				var fail_chance = float(outcome[key])
+				if randf() < fail_chance:
+					_end_first_mission(true)
+			"reward_bonus":
+				# Store bonus multiplier on the first active mission for use at completion
+				if not GameState.state.active_missions.is_empty():
+					GameState.state.active_missions[0]["reward_bonus"] = float(outcome[key])
+			"risky_continue":
+				# Inline random outcome: fail = abort with no rewards, success = immediate 1.5x credits
+				var rc = outcome[key]
+				if not rc is Dictionary:
+					pass
+				elif randf() < float(rc.get("fail_chance", 0.3)):
+					_end_first_mission(true)
+				else:
+					# Give multiplied credits immediately from first mission's era
+					if not GameState.state.active_missions.is_empty():
+						var mission = GameState.state.active_missions[0]
+						var era = EraManager.get_era(mission.era_id)
+						if not era.is_empty():
+							var mult = float(rc.get("reward_mult", 1.5))
+							GameState.add_resource("credits", float(era.get("base_credits", 0.0)) * mult)
+			"te_penalty_run":
+				# Reduce max TE by the given fraction (floored at 1)
+				var penalty = float(outcome[key])
+				var new_max = maxf(
+					float(GameState.state.resources.temporal_energy_max) * (1.0 - penalty),
+					1.0
+				)
+				GameState.state.resources.temporal_energy_max = new_max
+				GameState.state.resources.temporal_energy = minf(
+					GameState.state.resources.temporal_energy,
+					new_max
+				)
 
 func _capture_first_deployed_agent() -> void:
 	for i in range(GameState.state.active_missions.size()):
@@ -153,6 +197,7 @@ func _end_first_mission(no_rewards: bool) -> void:
 			GameState.add_resource("credits", float(era.get("base_credits", 0.0)))
 			GameState.add_resource("knowledge", float(era.get("base_knowledge", 0.0)))
 			GameState.add_resource("historical_data", float(era.get("base_historical_data", 0.0)))
+			GameState.add_resource("influence", float(era.get("base_influence", 0.0)))
 
 func get_active_event() -> Dictionary:
 	return _active_event

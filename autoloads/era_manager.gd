@@ -65,8 +65,9 @@ func _complete_mission(mission: Dictionary) -> void:
 
 	var rewards: Dictionary = {}
 
+	var reward_bonus = float(mission.get("reward_bonus", 1.0))
 	var credit_mult = ResearchManager.get_multiplier("credits") * GameState.get_stability_penalty()
-	rewards["credits"] = float(era.get("base_credits", 0.0)) * efficiency * credit_mult
+	rewards["credits"] = float(era.get("base_credits", 0.0)) * efficiency * credit_mult * reward_bonus
 
 	var base_k = float(era.get("base_knowledge", 0.0))
 	if base_k > 0.0:
