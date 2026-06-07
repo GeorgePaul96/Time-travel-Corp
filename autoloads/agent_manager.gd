@@ -69,9 +69,11 @@ func can_hire() -> bool:
 			and GameState.get_resource("credits") >= get_hire_cost())
 
 func hire_agent() -> void:
-	if not can_hire():
+	var cost = get_hire_cost()
+	if not (GameState.state.agents.size() < get_agent_cap()
+			and GameState.get_resource("credits") >= cost):
 		return
-	GameState.add_resource("credits", -get_hire_cost())
+	GameState.add_resource("credits", -cost)
 	var id = "agent_" + str(GameState.state.agents.size())
 	var name = first_names.pick_random() + " " + last_names.pick_random()
 	var agent = _make_agent(id, name)
@@ -99,6 +101,9 @@ func dispatch_agent(agent_id: String, era_id: String) -> void:
 	var agent = get_agent(agent_id)
 	agent.status = "DEPLOYED"
 	var era = EraManager.get_era(era_id)
+	if era.is_empty():
+		push_error("AgentManager: cannot dispatch to unknown era: " + era_id)
+		return
 	var stats = get_agent_stats(agent_id)
 	var speed_reduction = stats.get("speed", 0.0)
 	var duration = float(era.get("duration", 60)) * (1.0 - speed_reduction)
