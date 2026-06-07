@@ -1,1 +1,137 @@
-[]
+[
+  {"id":"temporal_anomaly","name":"Temporal Anomaly","trigger":"any","weight":10,
+   "description":"A rift in spacetime detected near HQ. Stability is destabilising.",
+   "choices":[
+     {"label":"Contain it","desc":"-500 Credits, -10 Stability","outcome":{"credits":-500,"stability":-10}},
+     {"label":"Study it","desc":"+200 Knowledge, -25 Stability","outcome":{"knowledge":200,"stability":-25}},
+     {"label":"Ignore it","desc":"-15 Stability","outcome":{"stability":-15}}
+   ],"default_choice":2},
+  {"id":"corporate_spy","name":"Corporate Spy","trigger":"any","weight":8,
+   "description":"A rival corporation has infiltrated your systems.",
+   "choices":[
+     {"label":"Pay them off","desc":"-2,000 Credits","outcome":{"credits":-2000}},
+     {"label":"Confront them","desc":"+5 Influence, -10 Stability","outcome":{"influence":5,"stability":-10}},
+     {"label":"Ignore","desc":"-500 Knowledge","outcome":{"knowledge":-500}}
+   ],"default_choice":2},
+  {"id":"government_inquiry","name":"Government Inquiry","trigger":"any","weight":6,
+   "description":"Temporal authorities are asking uncomfortable questions.",
+   "choices":[
+     {"label":"Bribe officials","desc":"-5,000 Credits","outcome":{"credits":-5000}},
+     {"label":"Cooperate","desc":"-30 Influence, +200 Reputation","outcome":{"influence":-30,"reputation":200}},
+     {"label":"Stonewall","desc":"-50 Stability","outcome":{"stability":-50}}
+   ],"default_choice":1},
+  {"id":"artifact_market","name":"Artifact Black Market","trigger":"any","weight":7,
+   "description":"An anonymous seller offers rare artifacts at a suspicious price.",
+   "choices":[
+     {"label":"Buy them","desc":"-2,000 Credits, +20 Artifacts","outcome":{"credits":-2000,"artifacts":20}},
+     {"label":"Investigate","desc":"+10 Influence","outcome":{"influence":10}},
+     {"label":"Ignore","desc":"Nothing happens","outcome":{}}
+   ],"default_choice":2},
+  {"id":"stability_crisis","name":"Stability Crisis","trigger":"stability_below_30","weight":15,
+   "description":"WARNING: Temporal stability is critical. Immediate action required.",
+   "choices":[
+     {"label":"Emergency protocols","desc":"-1,000 Credits, +20 Stability","outcome":{"credits":-1000,"stability":20}},
+     {"label":"Let it ride","desc":"-5 Stability","outcome":{"stability":-5}}
+   ],"default_choice":1},
+  {"id":"mammoth_stampede","name":"Mammoth Stampede","trigger":"stone_age","weight":12,
+   "description":"A herd of mammoths is heading toward your agent's camp.",
+   "choices":[
+     {"label":"Evacuate","desc":"Mission +30 seconds","outcome":{"mission_delay":30}},
+     {"label":"Study the herd","desc":"+3 Artifacts","outcome":{"artifacts":3}},
+     {"label":"Ignore","desc":"20% mission fail","outcome":{"mission_fail_chance":0.2}}
+   ],"default_choice":0},
+  {"id":"fire_discovery","name":"Fire Discovery","trigger":"stone_age","weight":10,
+   "description":"Your agent witnesses humanity discovering fire for the first time.",
+   "choices":[
+     {"label":"Document it","desc":"+100 Knowledge","outcome":{"knowledge":100}},
+     {"label":"Participate","desc":"+50 Credits, mission ends early","outcome":{"credits":50,"end_mission":true}}
+   ],"default_choice":0},
+  {"id":"pharaohs_interest","name":"Pharaoh's Interest","trigger":"egypt","weight":12,
+   "description":"The Pharaoh has taken notice of your agent's unusual technology.",
+   "choices":[
+     {"label":"Offer a gift","desc":"-500 Credits, +50 Influence","outcome":{"credits":-500,"influence":50}},
+     {"label":"Escape","desc":"Mission ends, full rewards","outcome":{"end_mission":true}},
+     {"label":"Stay","desc":"+25% rewards on return","outcome":{"reward_bonus":0.25}}
+   ],"default_choice":1},
+  {"id":"pyramid_blueprint","name":"Pyramid Blueprint","trigger":"egypt","weight":8,
+   "description":"Your agent has found what appear to be original pyramid construction plans.",
+   "choices":[
+     {"label":"Acquire them","desc":"+200 Knowledge, +30 Artifacts","outcome":{"knowledge":200,"artifacts":30}},
+     {"label":"Leave them","desc":"Nothing","outcome":{}}
+   ],"default_choice":0},
+  {"id":"tomb_curse","name":"Tomb Curse","trigger":"egypt","weight":6,
+   "description":"Your agent triggered an ancient mechanism. The air smells wrong.",
+   "choices":[
+     {"label":"Trust the Chrono Shield","desc":"-15 Stability","outcome":{"stability":-15}},
+     {"label":"Abort mission","desc":"No rewards, agent safe","outcome":{"end_mission":true,"no_rewards":true}}
+   ],"default_choice":0},
+  {"id":"senate_bribery","name":"Senate Bribery","trigger":"roman_empire","weight":12,
+   "description":"A Roman senator has cornered your agent and is making demands.",
+   "choices":[
+     {"label":"Bribe him","desc":"-1,000 Credits, +20 Influence","outcome":{"credits":-1000,"influence":20}},
+     {"label":"Decline","desc":"Nothing","outcome":{}},
+     {"label":"Frame a rival senator","desc":"+10 Influence, -10 Stability","outcome":{"influence":10,"stability":-10}}
+   ],"default_choice":1},
+  {"id":"gladiator_challenge","name":"Gladiator Challenge","trigger":"roman_empire","weight":8,
+   "description":"Your agent has been challenged to the arena. The crowd is watching.",
+   "choices":[
+     {"label":"Accept the fight","desc":"50% chance: +50 Reputation OR -20 Stability","outcome":{"random_outcome":{"success":{"reputation":50},"failure":{"stability":-20},"chance":0.5}}},
+     {"label":"Pay for a substitute","desc":"-800 Credits","outcome":{"credits":-800}},
+     {"label":"Disappear","desc":"Mission ends early","outcome":{"end_mission":true}}
+   ],"default_choice":1},
+  {"id":"black_plague","name":"Black Plague Outbreak","trigger":"medieval_europe","weight":10,
+   "description":"The plague has reached your agent's location. Time to decide.",
+   "choices":[
+     {"label":"Evacuate","desc":"No rewards, agent safe","outcome":{"end_mission":true,"no_rewards":true}},
+     {"label":"Treat survivors","desc":"+100 Knowledge, +30 Reputation, -20 Stability","outcome":{"knowledge":100,"reputation":30,"stability":-20}},
+     {"label":"Shelter in place","desc":"Mission delayed +60 seconds","outcome":{"mission_delay":60}}
+   ],"default_choice":2},
+  {"id":"witch_trial","name":"Witch Trial","trigger":"medieval_europe","weight":8,
+   "description":"Your agent has been accused of witchcraft by the local authorities.",
+   "choices":[
+     {"label":"Bribe the magistrate","desc":"-1,500 Credits, agent freed","outcome":{"credits":-1500}},
+     {"label":"Magical escape","desc":"-15 Stability, mission ends","outcome":{"stability":-15,"end_mission":true}},
+     {"label":"Confess","desc":"Agent CAPTURED","outcome":{"capture_agent":true}}
+   ],"default_choice":0},
+  {"id":"da_vinci_encounter","name":"Da Vinci Encounter","trigger":"renaissance","weight":12,
+   "description":"Leonardo da Vinci is watching your agent's equipment with intense curiosity.",
+   "choices":[
+     {"label":"Distract him with art","desc":"+200 Knowledge","outcome":{"knowledge":200}},
+     {"label":"Show him a device","desc":"+500 Knowledge, -30 Stability","outcome":{"knowledge":500,"stability":-30}},
+     {"label":"Leave the area","desc":"Nothing","outcome":{}}
+   ],"default_choice":0},
+  {"id":"inventors_jackpot","name":"Inventor's Jackpot","trigger":"renaissance","weight":8,
+   "description":"Your agent has stumbled into a secret workshop full of prototype devices.",
+   "choices":[
+     {"label":"Raid it","desc":"+100 Artifacts, +300 Knowledge","outcome":{"artifacts":100,"knowledge":300}},
+     {"label":"Document and leave","desc":"+200 Knowledge, +10 Reputation","outcome":{"knowledge":200,"reputation":10}}
+   ],"default_choice":0},
+  {"id":"factory_fire","name":"Factory Fire","trigger":"industrial_revolution","weight":10,
+   "description":"An industrial accident has put your agent in immediate danger.",
+   "choices":[
+     {"label":"Emergency extraction","desc":"Mission ends, no rewards","outcome":{"end_mission":true,"no_rewards":true}},
+     {"label":"Help the workers","desc":"+50 Reputation, -20 Stability","outcome":{"reputation":50,"stability":-20}},
+     {"label":"Continue the mission","desc":"30% fail risk, x1.5 rewards if succeeds","outcome":{"risky_continue":{"fail_chance":0.3,"reward_mult":1.5}}}
+   ],"default_choice":0},
+  {"id":"agent_detected","name":"Agent Detected","trigger":"cold_war","weight":14,
+   "description":"Cold War intelligence services have identified your operative.",
+   "choices":[
+     {"label":"Extract immediately","desc":"Mission ends, agent safe","outcome":{"end_mission":true}},
+     {"label":"Go dark","desc":"Agent CAPTURED","outcome":{"capture_agent":true}},
+     {"label":"Bluff it out","desc":"60% safe, 40% CAPTURED","outcome":{"random_outcome":{"success":{},"failure":{"capture_agent":true},"chance":0.6}}}
+   ],"default_choice":0},
+  {"id":"nuclear_briefcase","name":"Nuclear Briefcase","trigger":"cold_war","weight":6,
+   "description":"Your agent has found an unattended weapons case. No one is watching.",
+   "choices":[
+     {"label":"Secure it","desc":"+100 Influence, -30 Stability","outcome":{"influence":100,"stability":-30}},
+     {"label":"Report to authorities","desc":"+50 Reputation, mission ends","outcome":{"reputation":50,"end_mission":true}},
+     {"label":"Ignore it","desc":"Nothing","outcome":{}}
+   ],"default_choice":2},
+  {"id":"future_corp_contact","name":"Future Corporation Contact","trigger":"near_future","weight":10,
+   "description":"A corporation from 2250 has made contact. They want to negotiate.",
+   "choices":[
+     {"label":"Accept their deal","desc":"TE -20% this run, +3x Knowledge for 5 min","outcome":{"te_penalty_run":0.2,"knowledge_boost_5min":3.0}},
+     {"label":"Counter-offer","desc":"+10 Influence","outcome":{"influence":10}},
+     {"label":"Reject","desc":"Nothing, but they note it","outcome":{}}
+   ],"default_choice":2}
+]
