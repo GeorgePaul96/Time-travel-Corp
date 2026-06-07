@@ -44,6 +44,10 @@ func add_resource(key: String, amount: float) -> void:
 	if not state.resources.has(key):
 		return
 	state.resources[key] = float(state.resources[key]) + amount
+	# Resources cannot go below 0 (stability and TE are clamped separately below)
+	if key not in ["stability", "temporal_energy", "temporal_energy_max"]:
+		if float(state.resources[key]) < 0.0:
+			state.resources[key] = 0.0
 	if key == "credits" and amount > 0.0:
 		state.total_credits_earned += amount
 	if key == "stability":
@@ -54,6 +58,7 @@ func add_resource(key: String, amount: float) -> void:
 			0.0,
 			state.resources.temporal_energy_max
 		)
+	state_changed.emit()
 
 func apply_passive_income() -> void:
 	# TE passive bonus from Industrial / Near Future deployed agents
@@ -72,19 +77,28 @@ func decay_stability() -> void:
 		decay *= 0.8
 	if "security_department" in state.departments:
 		decay *= 0.7
-	var floor_val = ResearchManager.get_stability_floor()
+	var floor_val = 0.0
+	if ResearchManager.has_method("get_stability_floor"):
+		floor_val = ResearchManager.get_stability_floor()
 	var new_stability = maxf(state.resources.stability - decay, floor_val)
 	state.resources.stability = new_stability
+	state_changed.emit()
 
 func calculate_income_per_second() -> Dictionary:
 	var income = {"credits": 0.0, "knowledge": 0.0, "historical_data": 0.0, "influence": 0.0}
 	for mission in state.active_missions:
+		if not EraManager.has_method("get_era"):
+			continue
 		var era = EraManager.get_era(mission.era_id)
 		if era.is_empty():
+			continue
+		if not AgentManager.has_method("get_agent_stats"):
 			continue
 		var agent_stats = AgentManager.get_agent_stats(mission.agent_id)
 		var efficiency = agent_stats.get("efficiency", 1.0)
 		var duration = float(era.get("duration", 60))
+		if duration <= 0.0:
+			continue
 		income.credits += (float(era.get("base_credits", 0.0)) * efficiency) / duration
 		income.knowledge += float(era.get("base_knowledge", 0.0)) / duration
 		income.historical_data += float(era.get("base_historical_data", 0.0)) / duration
