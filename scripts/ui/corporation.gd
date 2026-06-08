@@ -57,7 +57,12 @@ func _add_dept_row(dept: Dictionary) -> void:
     row.add_child(info)
     if not owned:
         var btn = Button.new()
-        btn.text = "BUY (%.0f ₢)" % dept.cost_credits
+        var cost_str = "%.0f ₢" % dept.cost_credits
+        if dept.get("cost_influence", 0.0) > 0:
+            cost_str += " + %.0f INF" % dept.cost_influence
+        if dept.get("cost_knowledge", 0.0) > 0:
+            cost_str += " + %.0f K" % dept.cost_knowledge
+        btn.text = "BUY (%s)" % cost_str
         btn.disabled = not _can_buy_dept(dept)
         var dept_id = dept.id
         btn.pressed.connect(func(): _buy_dept(dept_id, dept))
@@ -76,6 +81,8 @@ func _can_buy_dept(dept: Dictionary) -> bool:
     return true
 
 func _buy_dept(dept_id: String, dept: Dictionary) -> void:
+    if not _can_buy_dept(dept):
+        return
     GameState.add_resource("credits", -dept.cost_credits)
     if dept.get("cost_influence", 0.0) > 0:
         GameState.add_resource("influence", -dept.cost_influence)

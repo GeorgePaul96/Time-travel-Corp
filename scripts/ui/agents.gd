@@ -41,7 +41,7 @@ func _add_agent_row(agent: Dictionary) -> void:
         row.add_child(dispatch_btn)
     elif agent.status == "CAPTURED":
         var ransom_btn = Button.new()
-        ransom_btn.text = "RANSOM (10K ₢)"
+        ransom_btn.text = "RANSOM (10K ₢ + 50 INF)"
         var agent_id = agent.id
         ransom_btn.pressed.connect(func(): AgentManager.ransom_agent(agent_id))
         row.add_child(ransom_btn)
