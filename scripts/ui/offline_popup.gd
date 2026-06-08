@@ -15,10 +15,12 @@ func show_rewards(data: Dictionary) -> void:
 	var rewards = data.get("rewards", {})
 	var lines: Array = ["Your agents collected:"]
 	if rewards.get("credits", 0.0) > 0:
-		lines.append("  +%.0f ₢ Credits" % rewards.credits)
+		lines.append("  +%.0f ₢ Credits" % rewards.get("credits", 0.0))
 	if rewards.get("knowledge", 0.0) > 0:
-		lines.append("  +%.0f Knowledge" % rewards.knowledge)
+		lines.append("  +%.0f Knowledge" % rewards.get("knowledge", 0.0))
 	if rewards.get("historical_data", 0.0) > 0:
-		lines.append("  +%.0f Historical Data" % rewards.historical_data)
+		lines.append("  +%.0f Historical Data" % rewards.get("historical_data", 0.0))
+	if lines.size() == 1:
+		lines.append("  Nothing this time.")
 	rewards_label.text = "\n".join(lines)
 	visible = true
