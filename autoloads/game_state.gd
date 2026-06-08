@@ -13,7 +13,7 @@ func _ready() -> void:
 func initialize_state() -> void:
 	state = {
 		"resources": {
-			"credits": 0.0,
+			"credits": 50.0,
 			"knowledge": 0.0,
 			"artifacts": 0.0,
 			"historical_data": 0.0,
