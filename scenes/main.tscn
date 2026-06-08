@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://main"]
+[gd_scene load_steps=7 format=3 uid="uid://main"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://dashboard" path="res://scenes/ui/dashboard.tscn" id="2_dash"]
+[ext_resource type="PackedScene" uid="uid://timelines" path="res://scenes/ui/timelines.tscn" id="3_tln"]
+[ext_resource type="PackedScene" uid="uid://agents" path="res://scenes/ui/agents.tscn" id="4_agt"]
+[ext_resource type="PackedScene" uid="uid://research" path="res://scenes/ui/research.tscn" id="5_rsh"]
+[ext_resource type="PackedScene" uid="uid://corporation" path="res://scenes/ui/corporation.tscn" id="6_corp"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
@@ -8,5 +13,21 @@ script = ExtResource("1_main")
 [node name="TickTimer" type="Timer" parent="."]
 wait_time = 1.0
 autostart = true
+
+[node name="Tabs" type="TabContainer" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Dashboard" parent="Tabs" instance=ExtResource("2_dash")]
+
+[node name="Timelines" parent="Tabs" instance=ExtResource("3_tln")]
+
+[node name="Agents" parent="Tabs" instance=ExtResource("4_agt")]
+
+[node name="Research" parent="Tabs" instance=ExtResource("5_rsh")]
+
+[node name="Corporation" parent="Tabs" instance=ExtResource("6_corp")]
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

@@ -1,3 +1,33 @@
-[gd_scene format=3 uid="uid://agents"]
+[gd_scene load_steps=2 format=3 uid="uid://agents"]
+
+[ext_resource type="Script" uid="uid://cx7m3q8nrv5d9" path="res://scripts/ui/agents.gd" id="1_agt01"]
 
 [node name="Agents" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_agt01")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 8
+
+[node name="Header" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "AGENT ROSTER"
+
+[node name="HireBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "HIRE AGENT"
+
+[node name="HireCostLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = ""
+
+[node name="AgentList" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
