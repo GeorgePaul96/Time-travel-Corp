@@ -20,7 +20,12 @@ ResearchManager="*res://autoloads/research_manager.gd"
 EventManager="*res://autoloads/event_manager.gd"
 SaveManager="*res://autoloads/save_manager.gd"
 
+[gui]
+
+theme/custom="res://theme/terminal.tres"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.0313726, 0.0509804, 0.0313726, 1)
