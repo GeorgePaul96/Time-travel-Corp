@@ -5,6 +5,9 @@ var _save_tick: int = 0
 
 func _ready() -> void:
 	_boot()
+	if not offline_popup_data.is_empty():
+		await get_tree().process_frame
+		$OfflinePopup.show_rewards(offline_popup_data)
 
 func _boot() -> void:
 	var loaded = SaveManager.load_game()

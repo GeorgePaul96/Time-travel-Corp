@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://main"]
+[gd_scene load_steps=9 format=3 uid="uid://main"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://dashboard" path="res://scenes/ui/dashboard.tscn" id="2_dash"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://research" path="res://scenes/ui/research.tscn" id="5_rsh"]
 [ext_resource type="PackedScene" uid="uid://corporation" path="res://scenes/ui/corporation.tscn" id="6_corp"]
 [ext_resource type="PackedScene" uid="uid://event_overlay" path="res://scenes/ui/event_overlay.tscn" id="7_ovl"]
+[ext_resource type="PackedScene" uid="uid://offline_popup" path="res://scenes/ui/offline_popup.tscn" id="8_ofp"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
@@ -32,5 +33,7 @@ anchor_bottom = 1.0
 [node name="Corporation" parent="Tabs" instance=ExtResource("6_corp")]
 
 [node name="EventOverlay" parent="." instance=ExtResource("7_ovl")]
+
+[node name="OfflinePopup" parent="." instance=ExtResource("8_ofp")]
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
