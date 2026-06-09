@@ -1,52 +1,27 @@
-extends Node
-
-var offline_popup_data: Dictionary = {}
-var _save_tick: int = 0
+extends Control
 
 func _ready() -> void:
-	_boot()
-	if not offline_popup_data.is_empty():
-		await get_tree().process_frame
-		$OfflinePopup.show_rewards(offline_popup_data)
+	SaveManager.load_game()
+	SaveManager.calculate_offline_progress()
 
-func _boot() -> void:
-	var loaded = SaveManager.load_game()
-	if loaded:
-		offline_popup_data = SaveManager.calculate_offline_rewards()
-	else:
-		GameState.initialize_state()
+	GameManager.state_changed.connect(_update_ui)
 
-	AgentManager.create_starter_agent()
-	_apply_starting_echo_upgrades()
-	GameState.emit_signal("state_changed")
+	%TerminalButton.pressed.connect(func(): %TerminalOverlay.show())
+	%SaveButton.pressed.connect(func(): SaveManager.save())
+	$TerminalOverlay/CenterContainer/VBoxContainer/CloseTerminalBtn.pressed.connect(func(): %TerminalOverlay.hide())
 
-func _apply_starting_echo_upgrades() -> void:
-	var echoes = GameState.state.get("echo_upgrades", [])
-	if "E-06" in echoes and GameState.get_resource("credits") == 0.0:
-		GameState.add_resource("credits", 1000.0)
-	if "E-07" in echoes and GameState.get_resource("knowledge") == 0.0:
-		GameState.add_resource("knowledge", 100.0)
-	if "E-04" in echoes:
-		if not "egypt" in GameState.state.eras_unlocked:
-			GameState.state.eras_unlocked.append("egypt")
-	if "E-02" in echoes:
-		# Hire second starter agent if capacity allows
-		if GameState.state.agents.size() < 2 and AgentManager.can_hire():
-			AgentManager.hire_agent()
+	%StabilityUpgradeBtn.pressed.connect(func(): GameManager.buy_upgrade("stability_regen", 10.0))
+	%EnergyUpgradeBtn.pressed.connect(func(): GameManager.buy_upgrade("energy_regen", 10.0))
+	%ProductionUpgradeBtn.pressed.connect(func(): GameManager.buy_upgrade("production_bonus", 20.0))
+	$TerminalOverlay/CenterContainer/VBoxContainer/UpgradesContainer/PrestigeBtn.pressed.connect(func():
+		GameManager.prestige()
+		%TerminalOverlay.hide()
+	)
 
-func _on_tick_timer_timeout() -> void:
-	EraManager.tick(1.0)
-	GameState.apply_passive_income()
-	GameState.decay_stability()
-	EventManager.try_fire_event()
-	EventManager.tick_event_countdown()
-	_save_tick += 1
-	if _save_tick >= 30:
-		SaveManager.save()
-		_save_tick = 0
+	_update_ui()
 
-func get_offline_popup_data() -> Dictionary:
-	return offline_popup_data
-
-func clear_offline_popup_data() -> void:
-	offline_popup_data = {}
+func _update_ui() -> void:
+	var res = GameManager.state.resources
+	%CapitalLabel.text = "Capital: " + str(snapped(res.capital, 0.1))
+	%EnergyLabel.text = "Energy: " + str(snapped(res.energy, 0.1)) + "/" + str(res.energy_max)
+	%AnomaliesLabel.text = "Anomalies: " + str(snapped(res.anomalies, 0.1))
