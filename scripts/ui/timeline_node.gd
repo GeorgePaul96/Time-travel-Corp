@@ -22,13 +22,23 @@ func _update_ui() -> void:
 	%ExtractorsLabel.text = "Extractors: " + str(data.active_extractors)
 
 	var prod = GameManager.calculate_node_production(node_id)
+	var mult = GameManager.calculate_node_multiplier(node_id)
+	var mult_text = "" if mult == 1.0 else " (x" + str(snapped(mult, 0.01)) + ")"
 
 	if data.is_mutated:
-		%StateLabel.text = "MUTATED"
+		var mutation_name = "MUTATED"
+		match node_id:
+			"antiquity": mutation_name = "PRIMAL CHAOS"
+			"middle_ages": mutation_name = "DARK AGE"
+			"industrial": mutation_name = "DIESEL WASTES"
+			"future": mutation_name = "SINGULARITY"
+
+		%StateLabel.text = mutation_name
 		%StateLabel.add_theme_color_override("font_color", Color.RED)
 		%PatchBtn.show()
 		%HBoxContainer.hide()
-		%ProductionLabel.text = "Anomalies: " + str(snapped(prod, 0.1)) + "/s"
+		%ProductionLabel.text = "Anomalies: " + str(snapped(prod, 0.1)) + "/s" + mult_text
+
 
 		# Visual feedback for mutation
 		var style = StyleBoxFlat.new()
@@ -44,7 +54,7 @@ func _update_ui() -> void:
 		%StateLabel.add_theme_color_override("font_color", Color.GREEN)
 		%PatchBtn.hide()
 		%HBoxContainer.show()
-		%ProductionLabel.text = "Capital: " + str(snapped(prod, 0.1)) + "/s"
+		%ProductionLabel.text = "Capital: " + str(snapped(prod, 0.1)) + "/s" + mult_text
 
 		# Visual feedback for stable
 		var style = StyleBoxFlat.new()

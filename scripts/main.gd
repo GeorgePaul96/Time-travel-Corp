@@ -25,3 +25,6 @@ func _update_ui() -> void:
 	%CapitalLabel.text = "Capital: " + str(snapped(res.capital, 0.1))
 	%EnergyLabel.text = "Energy: " + str(snapped(res.energy, 0.1)) + "/" + str(res.energy_max)
 	%AnomaliesLabel.text = "Anomalies: " + str(snapped(res.anomalies, 0.1))
+
+	var prestige_gain = GameManager.calculate_prestige_gain()
+	$TerminalOverlay/CenterContainer/VBoxContainer/UpgradesContainer/PrestigeBtn.text = "COLLAPSE TIMELINE (+" + str(prestige_gain) + " Anomalies)"

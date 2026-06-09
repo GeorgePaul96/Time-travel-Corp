@@ -13,7 +13,7 @@ func initialize_state() -> void:
 		"resources": {
 			"capital": 0.0,
 			"energy": 100.0,
-			"energy_max": 100.0,
+			"energy_max": 200.0,
 			"anomalies": 0.0
 		},
 		"nodes": {
@@ -48,14 +48,26 @@ func initialize_state() -> void:
 
 func _process(delta: float) -> void:
 	# Energy regen
-	var energy_regen_rate = 1.0 + (state.upgrades.energy_regen * 0.5)
+	var energy_regen_rate = 5.0 + (state.upgrades.energy_regen * 0.5)
 	state.resources.energy = min(state.resources.energy + energy_regen_rate * delta, state.resources.energy_max)
 
 	# Node processing
+	# Calculate upstream mutation penalties first
+	var upstream_mutated = {
+		"antiquity": false,
+		"middle_ages": state.nodes["antiquity"].is_mutated,
+		"industrial": state.nodes["middle_ages"].is_mutated,
+		"future": state.nodes["industrial"].is_mutated
+	}
+
 	for node_id in state.nodes:
 		var node = state.nodes[node_id]
 		var base_stability_regen = 0.5 + (state.upgrades.stability_regen * 0.2)
 		var stability_drain = node.active_extractors * 2.0
+
+		if upstream_mutated[node_id]:
+			stability_drain += 1.0 # Paradox spreads downstream
+
 
 		# Apply stability changes
 		node.stability = clamp(node.stability + (base_stability_regen - stability_drain) * delta, 0.0, 100.0)
@@ -79,6 +91,18 @@ func _process(delta: float) -> void:
 
 	state_changed.emit()
 
+func calculate_node_multiplier(node_id: String) -> float:
+	var multiplier = 1.0 + (state.upgrades.production_bonus * 0.1)
+
+	if node_id == "middle_ages":
+		multiplier *= max(0.1, state.nodes["antiquity"].stability / 100.0)
+	elif node_id == "industrial":
+		multiplier *= max(0.1, state.nodes["middle_ages"].stability / 100.0)
+	elif node_id == "future":
+		multiplier *= max(0.1, state.nodes["industrial"].stability / 100.0)
+
+	return multiplier
+
 func calculate_node_production(node_id: String) -> float:
 	var node = state.nodes[node_id]
 	if node.active_extractors == 0:
@@ -91,15 +115,7 @@ func calculate_node_production(node_id: String) -> float:
 		"industrial": base_production = 5.0
 		"future": base_production = 10.0
 
-	var multiplier = 1.0 + (state.upgrades.production_bonus * 0.1)
-
-	# Dependency multipliers
-	if node_id == "middle_ages":
-		multiplier *= (state.nodes["antiquity"].stability / 100.0)
-	elif node_id == "industrial":
-		multiplier *= (state.nodes["middle_ages"].stability / 100.0)
-	elif node_id == "future":
-		multiplier *= (state.nodes["industrial"].stability / 100.0)
+	var multiplier = calculate_node_multiplier(node_id)
 
 	if node.is_mutated:
 		# Mutated nodes might have a fixed anomaly rate or scaled based on extractors
@@ -108,8 +124,8 @@ func calculate_node_production(node_id: String) -> float:
 	return base_production * float(node.active_extractors) * multiplier
 
 func add_extractor(node_id: String) -> bool:
-	if state.resources.energy >= 10.0:
-		state.resources.energy -= 10.0
+	if state.resources.energy >= 5.0:
+		state.resources.energy -= 5.0
 		state.nodes[node_id].active_extractors += 1
 		state_changed.emit()
 		return true
@@ -118,6 +134,7 @@ func add_extractor(node_id: String) -> bool:
 func remove_extractor(node_id: String) -> void:
 	if state.nodes[node_id].active_extractors > 0:
 		state.nodes[node_id].active_extractors -= 1
+		state.resources.energy = min(state.resources.energy + 5.0, state.resources.energy_max)
 		state_changed.emit()
 
 func patch_node(node_id: String) -> bool:
@@ -130,8 +147,11 @@ func patch_node(node_id: String) -> bool:
 		return true
 	return false
 
+func calculate_prestige_gain() -> int:
+	return floor(state.resources.capital / 1000.0)
+
 func prestige() -> void:
-	var anomalies_gained = floor(state.resources.capital / 1000.0) # Simple formula
+	var anomalies_gained = calculate_prestige_gain() # Simple formula
 	var total_anomalies = state.resources.anomalies + anomalies_gained
 	var upgrades = state.upgrades.duplicate()
 	initialize_state()
