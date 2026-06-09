@@ -1,39 +1,127 @@
-[gd_scene load_steps=9 format=3 uid="uid://main"]
+[gd_scene load_steps=3 format=3 uid="uid://cx4x2m3u3m3u"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
-[ext_resource type="PackedScene" uid="uid://dashboard" path="res://scenes/ui/dashboard.tscn" id="2_dash"]
-[ext_resource type="PackedScene" uid="uid://timelines" path="res://scenes/ui/timelines.tscn" id="3_tln"]
-[ext_resource type="PackedScene" uid="uid://agents" path="res://scenes/ui/agents.tscn" id="4_agt"]
-[ext_resource type="PackedScene" uid="uid://research" path="res://scenes/ui/research.tscn" id="5_rsh"]
-[ext_resource type="PackedScene" uid="uid://corporation" path="res://scenes/ui/corporation.tscn" id="6_corp"]
-[ext_resource type="PackedScene" uid="uid://event_overlay" path="res://scenes/ui/event_overlay.tscn" id="7_ovl"]
-[ext_resource type="PackedScene" uid="uid://offline_popup" path="res://scenes/ui/offline_popup.tscn" id="8_ofp"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_x2m3u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/timeline_web.tscn" id="2_y3n4v"]
 
-[node name="Main" type="Node"]
-script = ExtResource("1_main")
-
-[node name="TickTimer" type="Timer" parent="."]
-wait_time = 1.0
-autostart = true
-
-[node name="Tabs" type="TabContainer" parent="."]
+[node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x2m3u")
 
-[node name="Dashboard" parent="Tabs" instance=ExtResource("2_dash")]
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.08, 1)
 
-[node name="Timelines" parent="Tabs" instance=ExtResource("3_tln")]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Agents" parent="Tabs" instance=ExtResource("4_agt")]
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="Research" parent="Tabs" instance=ExtResource("5_rsh")]
+[node name="CapitalLabel" type="Label" parent="VBoxContainer/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Capital: 0"
 
-[node name="Corporation" parent="Tabs" instance=ExtResource("6_corp")]
+[node name="EnergyLabel" type="Label" parent="VBoxContainer/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Energy: 100/100"
 
-[node name="EventOverlay" parent="." instance=ExtResource("7_ovl")]
+[node name="AnomaliesLabel" type="Label" parent="VBoxContainer/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Anomalies: 0"
+theme_override_colors/font_color = Color(0.8, 0.2, 1, 1)
 
-[node name="OfflinePopup" parent="." instance=ExtResource("8_ofp")]
+[node name="Controls" type="HBoxContainer" parent="VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 10
 
-[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
+[node name="TerminalButton" type="Button" parent="VBoxContainer/TopBar/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Terminal"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/TopBar/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save"
+
+[node name="TimelineWeb" parent="VBoxContainer" instance=ExtResource("2_y3n4v")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TerminalOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.9)
+
+[node name="CenterContainer" type="CenterContainer" parent="TerminalOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TerminalOverlay/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="TerminalOverlay/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "CORPORATE TERMINAL"
+horizontal_alignment = 1
+
+[node name="UpgradesContainer" type="GridContainer" parent="TerminalOverlay/CenterContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 10
+
+[node name="StabilityUpgradeBtn" type="Button" parent="TerminalOverlay/CenterContainer/VBoxContainer/UpgradesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrade Stability Regen (10 Anomalies)"
+
+[node name="EnergyUpgradeBtn" type="Button" parent="TerminalOverlay/CenterContainer/VBoxContainer/UpgradesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrade Energy Regen (10 Anomalies)"
+
+[node name="ProductionUpgradeBtn" type="Button" parent="TerminalOverlay/CenterContainer/VBoxContainer/UpgradesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrade Production (20 Anomalies)"
+
+[node name="PrestigeBtn" type="Button" parent="TerminalOverlay/CenterContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+text = "COLLAPSE TIMELINE (Prestige)"
+
+[node name="CloseTerminalBtn" type="Button" parent="TerminalOverlay/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close Terminal"
+

@@ -13,16 +13,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*res://autoloads/game_state.gd"
-AgentManager="*res://autoloads/agent_manager.gd"
-EraManager="*res://autoloads/era_manager.gd"
-ResearchManager="*res://autoloads/research_manager.gd"
-EventManager="*res://autoloads/event_manager.gd"
+GameManager="*res://autoloads/game_manager.gd"
 SaveManager="*res://autoloads/save_manager.gd"
-
-[gui]
-
-theme/custom="res://theme/terminal.tres"
 
 [rendering]
 
