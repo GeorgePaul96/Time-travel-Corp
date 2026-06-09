@@ -33,10 +33,13 @@ func calculate_offline_progress() -> void:
 	if elapsed < 10:
 		return
 
-	# Simple offline progression simulation (could be improved)
-	for i in range(elapsed):
-		# Simulate 1 second steps to handle stability/mutations correctly
-		GameManager._process(1.0)
+		# Improved offline progression calculation
+	var chunk_size = 60.0
+	var remaining = float(elapsed)
+	while remaining > 0:
+		var delta = min(chunk_size, remaining)
+		GameManager._process(delta)
+		remaining -= delta
 
 	# Force save timestamp update
 	GameManager.state.last_save_timestamp = now
