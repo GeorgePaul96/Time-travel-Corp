@@ -44,6 +44,7 @@ text = "Extractors: 0"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
