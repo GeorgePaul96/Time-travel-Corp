@@ -141,7 +141,7 @@ func patch_node(node_id: String) -> bool:
 	if state.nodes[node_id].is_mutated and state.resources.energy >= 50.0:
 		state.resources.energy -= 50.0
 		state.nodes[node_id].is_mutated = false
-		state.nodes[node_id].stability = 50.0 # Reset to a safe value
+		state.nodes[node_id].stability = 100.0 # Fully restore on patch
 		node_mutated.emit(node_id, "restored")
 		state_changed.emit()
 		return true
