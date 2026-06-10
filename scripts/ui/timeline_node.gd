@@ -3,15 +3,46 @@ extends PanelContainer
 @export var node_id: String = ""
 @export var node_name: String = ""
 
-func _ready() -> void:
-	%NameLabel.text = node_name
+@onready var _name_label: Label = %NameLabel
+@onready var _state_label: Label = %StateLabel
+@onready var _stability_bar: ProgressBar = %StabilityBar
+@onready var _production_label: Label = %ProductionLabel
+@onready var _extractors_label: Label = %ExtractorsLabel
+@onready var _h_box: HBoxContainer = %HBoxContainer
+@onready var _add_btn: Button = %AddBtn
+@onready var _remove_btn: Button = %RemoveBtn
+@onready var _patch_btn: Button = %PatchBtn
 
-	%AddBtn.pressed.connect(func(): GameManager.add_extractor(node_id))
-	%RemoveBtn.pressed.connect(func(): GameManager.remove_extractor(node_id))
-	%PatchBtn.pressed.connect(func(): GameManager.patch_node(node_id))
+var _style_stable: StyleBoxFlat
+var _style_mutated: StyleBoxFlat
+
+func _ready() -> void:
+	_name_label.text = node_name
+	_build_styles()
+
+	_add_btn.pressed.connect(func(): GameManager.add_extractor(node_id))
+	_remove_btn.pressed.connect(func(): GameManager.remove_extractor(node_id))
+	_patch_btn.pressed.connect(func(): GameManager.patch_node(node_id))
 
 	GameManager.state_changed.connect(_update_ui)
 	_update_ui()
+
+func _build_styles() -> void:
+	_style_stable = StyleBoxFlat.new()
+	_style_stable.bg_color = Color(0.1, 0.1, 0.1)
+	_style_stable.border_width_left = 1
+	_style_stable.border_width_right = 1
+	_style_stable.border_width_top = 1
+	_style_stable.border_width_bottom = 1
+	_style_stable.border_color = Color(0.3, 0.3, 0.3)
+
+	_style_mutated = StyleBoxFlat.new()
+	_style_mutated.bg_color = Color(0.2, 0.0, 0.0)
+	_style_mutated.border_width_left = 2
+	_style_mutated.border_width_right = 2
+	_style_mutated.border_width_top = 2
+	_style_mutated.border_width_bottom = 2
+	_style_mutated.border_color = Color.RED
 
 func _update_ui() -> void:
 	if not GameManager.state.nodes.has(node_id):
@@ -36,7 +67,7 @@ func _update_ui() -> void:
 
 	var prod = GameManager.calculate_node_production(node_id)
 	var mult = GameManager.calculate_node_multiplier(node_id)
-	var mult_text = "" if mult == 1.0 else " (x" + str(snapped(mult, 0.01)) + ")"
+	var mult_text = "" if is_equal_approx(mult, 1.0) else " (x" + str(snapped(mult, 0.01)) + ")"
 
 	# 2. CASCADE VISIBILITY: Find upstream penalties
 	var upstream_penalty_text = ""
