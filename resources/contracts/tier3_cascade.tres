@@ -1,0 +1,11 @@
+[gd_resource type="ContractDef" format=3]
+
+[resource]
+id = &"tier3_cascade"
+tier = 3
+display_name = "Aggressive Extraction Protocol"
+quota = 25000.0
+quota_relics = 0
+quarters = 8
+starting_injunctions = 3
+anomaly_reward = 35

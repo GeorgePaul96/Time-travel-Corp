@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 0
+id = &"overclock_antiquity"
+title = "Overclock Antiquity"
+body = "Antiquity extraction quotas have been raised. Yields reflect Board expectations."
+effects = [{"stat": "yield_mult", "op": "multiply", "value": 1.5, "scope": "era", "era_id": "antiquity", "duration": -1}]
+duration_quarters = -1

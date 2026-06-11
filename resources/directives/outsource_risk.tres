@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 1
+id = &"outsource_risk"
+title = "Outsource Risk"
+body = "Fronts will be slower. The quota will be larger. That is someone else's problem."
+effects = [{"stat": "front_speed_mult", "op": "multiply", "value": 0.8, "scope": "global", "duration": -1}]
+duration_quarters = -1

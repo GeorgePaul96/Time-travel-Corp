@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 0
+id = &"free_injunction"
+title = "Emergency Authorization"
+body = "One additional Continuity Injunction has been approved."
+effects = [{"stat": "injunctions", "op": "add", "value": 1.0, "scope": "global", "duration": 0}]
+duration_quarters = 0

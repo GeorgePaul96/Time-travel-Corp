@@ -1,0 +1,8 @@
+[gd_resource type="MutationDef" format=3]
+
+[resource]
+id = &"diesel_wastes"
+display_name = "DIESEL WASTES"
+effects = [{"scope": "era", "era_id": "industrial", "stat": "yield_mult", "op": "multiply", "value": 2.0, "severity_min": 1}, {"scope": "era", "era_id": "industrial", "stat": "yield_mult", "op": "multiply", "value": 3.0, "severity_min": 2}]
+emission_interval_quarters = [2, 1]
+yields_relics = false

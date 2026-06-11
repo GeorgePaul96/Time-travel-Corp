@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 1
+id = &"asset_stripping"
+title = "Asset Stripping"
+body = "Demolition returns full cost. Temporal scars are now someone else's era."
+effects = [{"stat": "salvage_rate", "op": "set", "value": 1.0, "scope": "global", "duration": -1}, {"stat": "scar_mult", "op": "multiply", "value": 2.0, "scope": "global", "duration": -1}]
+duration_quarters = -1

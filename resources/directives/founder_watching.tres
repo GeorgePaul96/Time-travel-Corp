@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 2
+id = &"founder_watching"
+title = "The Founder Is Watching"
+body = "Harvest values doubled. Dampen is unavailable this quarter. The Founder trusts you."
+effects = [{"stat": "harvest_mult", "op": "multiply", "value": 2.0, "scope": "global", "duration": 1}, {"stat": "dampen_disabled", "op": "set", "value": 1.0, "scope": "global", "duration": 1}]
+duration_quarters = 1

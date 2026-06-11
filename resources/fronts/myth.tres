@@ -1,0 +1,10 @@
+[gd_resource type="FrontTypeDef" format=3]
+
+[resource]
+id = &"myth"
+origin_era = &"antiquity"
+transmuted_name = "Zealotry"
+travel_time_base = 45.0
+arrival_effects = [{"stat": "instability_gain_mult", "op": "multiply", "value": 1.5, "scope": "era", "duration_quarters": 2, "severity_min": 1}, {"stat": "trigger_mutation", "op": "set", "value": 1.0, "scope": "era", "severity_min": 1, "condition": "instability_at_100"}]
+harvest_base = 150.0
+codename_pool = ["PROMETHEUS", "GORGON", "BABEL", "ATLAS", "ICARUS", "MEDUSA", "HYDRA", "TITAN", "KRONOS", "OLYMPUS"]

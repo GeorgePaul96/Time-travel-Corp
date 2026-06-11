@@ -1,0 +1,14 @@
+[gd_resource type="EraDef" format=3]
+
+[ext_resource type="Resource" path="res://resources/mutations/primal_chaos.tres" id="1"]
+
+[resource]
+id = &"antiquity"
+display_name = "Antiquity"
+downstream_id = &"middle_ages"
+signature_rule = &"foundation"
+rule_params = {"foundation_max_bonus": 0.5}
+extractor_cost_mult = 1.0
+instability_gain_mult = 1.0
+emits_front = &"myth"
+mutation = ExtResource("1")

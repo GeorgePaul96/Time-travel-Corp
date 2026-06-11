@@ -1,0 +1,8 @@
+[gd_resource type="MutationDef" format=3]
+
+[resource]
+id = &"dark_age"
+display_name = "DARK AGE"
+effects = [{"scope": "era", "era_id": "middle_ages", "stat": "instability_gain_mult", "op": "multiply", "value": 2.0, "severity_min": 1}]
+emission_interval_quarters = [0, 1]
+yields_relics = true

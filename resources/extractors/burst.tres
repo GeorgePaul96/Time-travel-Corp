@@ -1,0 +1,13 @@
+[gd_resource type="ExtractorDef" format=3]
+
+[resource]
+id = &"burst"
+display_name = "Burst Extractor"
+base_cost = 150.0
+yield_per_second = 0.0
+instability_per_second = 1.0
+burst_duration = 15.0
+burst_yield = 40.0
+burst_instability_spike = 15.0
+post_burst_yield = 5.0
+deep_countdown_quarters = 0

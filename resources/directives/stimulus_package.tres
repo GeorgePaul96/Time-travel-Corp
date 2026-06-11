@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 0
+id = &"stimulus_package"
+title = "Stimulus Package"
+body = "The Board has approved an emergency capital injection."
+effects = [{"stat": "capital", "op": "add", "value": 300.0, "scope": "global", "duration": 0}]
+duration_quarters = 0

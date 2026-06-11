@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 2
+id = &"synergy_initiative"
+title = "Synergy Initiative"
+body = "Your lowest-yield era will receive a complimentary Steady extractor each quarter. The Board is generous."
+effects = [{"stat": "synergy_initiative_active", "op": "set", "value": 1.0, "scope": "global", "duration": -1}]
+duration_quarters = -1

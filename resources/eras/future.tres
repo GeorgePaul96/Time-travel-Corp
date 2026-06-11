@@ -1,0 +1,11 @@
+[gd_resource type="EraDef" format=3]
+
+[resource]
+id = &"future"
+display_name = "Future"
+downstream_id = &""
+signature_rule = &"speculation"
+rule_params = {}
+extractor_cost_mult = 1.0
+instability_gain_mult = 1.0
+emits_front = &""

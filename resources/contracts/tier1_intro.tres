@@ -1,0 +1,11 @@
+[gd_resource type="ContractDef" format=3]
+
+[resource]
+id = &"tier1_intro"
+tier = 1
+display_name = "Q1 Revenue Initiative"
+quota = 5000.0
+quota_relics = 0
+quarters = 8
+starting_injunctions = 3
+anomaly_reward = 10

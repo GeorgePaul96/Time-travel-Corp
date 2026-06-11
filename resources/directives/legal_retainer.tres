@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 0
+id = &"legal_retainer"
+title = "Legal Retainer"
+body = "Counsel has been retained. Your next Injunction restock is on the Board."
+effects = [{"stat": "next_restock_free", "op": "set", "value": 1.0, "scope": "global", "duration": -1}]
+duration_quarters = -1

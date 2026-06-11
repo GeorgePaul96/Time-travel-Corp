@@ -1,0 +1,14 @@
+[gd_resource type="EraDef" format=3]
+
+[ext_resource type="Resource" path="res://resources/mutations/dark_age.tres" id="1"]
+
+[resource]
+id = &"middle_ages"
+display_name = "Middle Ages"
+downstream_id = &"industrial"
+signature_rule = &"brittle"
+rule_params = {}
+extractor_cost_mult = 0.7
+instability_gain_mult = 1.5
+emits_front = &"dogma"
+mutation = ExtResource("1")

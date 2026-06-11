@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 0
+id = &"industrial_subsidy"
+title = "Industrial Subsidy"
+body = "Industrial extraction costs reduced this quarter."
+effects = [{"stat": "cost_mult", "op": "multiply", "value": 0.7, "scope": "era", "era_id": "industrial", "duration": 1}]
+duration_quarters = 1

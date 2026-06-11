@@ -1,0 +1,13 @@
+[gd_resource type="ExtractorDef" format=3]
+
+[resource]
+id = &"steady"
+display_name = "Steady Extractor"
+base_cost = 100.0
+yield_per_second = 10.0
+instability_per_second = 0.5
+burst_duration = 0.0
+burst_yield = 0.0
+burst_instability_spike = 0.0
+post_burst_yield = 0.0
+deep_countdown_quarters = 0

@@ -1,0 +1,14 @@
+[gd_resource type="EraDef" format=3]
+
+[ext_resource type="Resource" path="res://resources/mutations/diesel_wastes.tres" id="1"]
+
+[resource]
+id = &"industrial"
+display_name = "Industrial"
+downstream_id = &"future"
+signature_rule = &"momentum"
+rule_params = {"momentum_tick_interval": 10.0, "momentum_step": 0.05, "momentum_cap": 1.0}
+extractor_cost_mult = 1.0
+instability_gain_mult = 1.0
+emits_front = &"soot"
+mutation = ExtResource("1")

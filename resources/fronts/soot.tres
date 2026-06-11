@@ -1,0 +1,10 @@
+[gd_resource type="FrontTypeDef" format=3]
+
+[resource]
+id = &"soot"
+origin_era = &"industrial"
+transmuted_name = "Singularity progress"
+travel_time_base = 45.0
+arrival_effects = [{"stat": "singularity", "op": "add", "value": 25.0, "scope": "global", "severity_min": 1}]
+harvest_base = 150.0
+codename_pool = ["SMOKESTACK", "GRIDLOCK", "MELTDOWN", "BLOWOUT", "RUNAWAY", "OVERCLOCK", "FEEDBACK", "CASCADE", "TERMINUS", "SINGULARITY"]

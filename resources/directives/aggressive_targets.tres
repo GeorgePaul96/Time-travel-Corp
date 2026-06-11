@@ -1,0 +1,9 @@
+[gd_resource type="DirectiveDef" format=3]
+
+[resource]
+tone = 1
+id = &"aggressive_targets"
+title = "Aggressive Quarterly Targets"
+body = "Yields up. Instability up. The Board never said this would be comfortable."
+effects = [{"stat": "yield_mult", "op": "multiply", "value": 1.4, "scope": "global", "duration": -1}, {"stat": "instability_gain_mult", "op": "multiply", "value": 1.3, "scope": "global", "duration": -1}]
+duration_quarters = -1
