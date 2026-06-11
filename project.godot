@@ -1,29 +1,25 @@
 ; Engine configuration file.
 ; It's best edited using the editor UI and not directly,
-; since the parameters that go here are not all obvious.
-;
-; Format:
-;   [section] ; section goes between []
-;   param=value ; assign values to parameters
+; but the file format is well-documented in the Godot docs.
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
+config/run/main_scene="res://scenes/meta/boot.tscn"
+
 config/name="Time Travel Corp"
-run/main_scene="uid://cx4x2m3u3m3u"
-config/features=PackedStringArray("4.6")
+config/features=PackedStringArray("4.3", "Compatibility")
 config/icon="res://icon.svg"
-config/run/main_scene="res://scenes/main.tscn"
+
 
 [autoload]
 
-GameManager="*res://autoloads/game_manager.gd"
-SaveManager="*res://autoloads/save_manager.gd"
+EventBus="*res://scripts/core/event_bus.gd"
+RunSim="*res://scripts/simulation/run_sim.gd"
+ContentDB="*res://scripts/core/content_db.gd"
+MetaState="*res://scripts/core/meta_state.gd"
+AudioDirector="*res://scripts/core/audio_director.gd"
 
 [rendering]
 

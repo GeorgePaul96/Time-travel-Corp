@@ -1,9 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(cd \"C:\\\\Users\\\\georg\\\\OneDrive\\\\Desktop\\\\Projects\\\\Time travel Corp\"; $json = Get-Content \"data\\\\research_tree.json\" -Raw | ConvertFrom-Json; Write-Host \"Total nodes: $\\($json.Count\\)\"; $cats = $json | Group-Object category; foreach \\($g in $cats\\) { Write-Host \"  $\\($g.Name\\): $\\($g.Count\\)\" }; Write-Host \"IDs: $\\($json.id -join ', '\\)\")",
-      "Read(//c/Users/georg/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/**)",
-      "Read(//c/Users/georg/.claude/plugins/**)"
+      "PowerShell(cd \"C:\\\\Users\\\\georg\\\\OneDrive\\\\Desktop\\\\Projects\\\\Time travel Corp\"; $json = Get-Content \"data\\\\research_tree.json\" -Raw | ConvertFrom-Json; Write-Host \"Total nodes: $\\($json.Count\\)\"; $cats = $json | Group-Object category; foreach \\($g in $cats\\) { Write-Host \"  $\\($g.Name\\): $\\($g.Count\\)\" }; Write-Host \"IDs: $\\($json.id -join ', '\\)\")"
     ]
   }
 }
