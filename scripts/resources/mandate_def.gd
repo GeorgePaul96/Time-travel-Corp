@@ -1,7 +1,8 @@
 extends Resource
 class_name MandateDef
 
-## Defines a win-condition or ultimate objective.
-
-@export var id: String = ""
-@export var mandate_name: String = ""
+@export var id: StringName = &""
+@export var display_name: String = ""
+@export var reveal_text: String = ""
+@export var condition: Dictionary = {}
+@export var anomaly_bonus: int = 0

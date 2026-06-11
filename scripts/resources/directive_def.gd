@@ -1,7 +1,9 @@
 extends Resource
 class_name DirectiveDef
 
-## Defines a corporate rule or permanent gameplay modifier.
-
-@export var id: String = ""
-@export var rule_text: String = ""
+@export_enum("gift", "deal", "mandate") var tone: int = 0
+@export var id: StringName = &""
+@export var title: String = ""
+@export var body: String = ""
+@export var effects: Array[Dictionary] = []
+@export var duration_quarters: int = -1

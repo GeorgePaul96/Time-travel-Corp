@@ -1,8 +1,8 @@
 extends Resource
 class_name MutationDef
 
-## Defines an alternate reality state for a collapsed era.
-
-@export var id: String = ""
-@export var mutation_name: String = ""
-@export var penalty_multiplier: float = 1.0
+@export var id: StringName = &""
+@export var display_name: String = ""
+@export var effects: Array[Dictionary] = []
+@export var emission_interval_quarters: Array[int] = []
+@export var yields_relics: bool = false
