@@ -1,0 +1,7 @@
+[gd_resource type="MandateDef" format=3]
+
+[resource]
+id = &"no_dampen"
+display_name = "Uninterrupted Timeline Mandate"
+reveal_text = "The Board hoped you would complete the run without dampening any fronts."
+anomaly_bonus = 20

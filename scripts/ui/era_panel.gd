@@ -13,6 +13,19 @@ func setup(p_era_id: StringName) -> void:
 	var era_def := ContentDB.get_by_id(era_id) as EraDef
 	name_label.text = era_def.display_name if era_def else str(era_id)
 	EventBus.tick_processed.connect(_refresh)
+	
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	gui_input.connect(_on_gui_input)
+	set_selected(false)
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var hud := get_tree().get_first_node_in_group("run_hud")
+		if hud and hud.has_method("select_era"):
+			hud.select_era(era_id)
+
+func set_selected(selected: bool) -> void:
+	modulate = Color(1.1, 1.1, 1.1) if selected else Color(0.65, 0.65, 0.65)
 
 func _refresh() -> void:
 	var state := RunSim.get_state()

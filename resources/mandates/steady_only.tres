@@ -1,0 +1,7 @@
+[gd_resource type="MandateDef" format=3]
+
+[resource]
+id = &"steady_only"
+display_name = "Conservative Infrastructure Mandate"
+reveal_text = "The Board hoped you would only deploy Steady extractors."
+anomaly_bonus = 25

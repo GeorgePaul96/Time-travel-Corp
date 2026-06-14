@@ -23,6 +23,12 @@ text = "QUARTERLY REPORT"
 layout_mode = 2
 text = ""
 
+[node name="MemoLabel" type="RichTextLabel" parent="VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 180)
+bbcode_enabled = true
+text = "Corporate memo incoming..."
+
 [node name="DirectiveContainer" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
 size_flags_vertical = 3

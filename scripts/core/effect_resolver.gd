@@ -20,23 +20,22 @@ static func apply_op(base: float, effect: Dictionary) -> float:
 		"set":      return val
 	return base
 
+# NOTE: singularity is intentionally NOT handled here. All singularity changes
+# must go through RunSim._set_singularity / _add_singularity so they are clamped
+# and run the loss check exactly once.
 static func apply_global(effect: Dictionary, state: RunState) -> void:
 	match effect.get("stat", ""):
 		"capital":
-			state.capital = apply_op(state.capital, effect)
+			state.capital = maxf(apply_op(state.capital, effect), 0.0)
 		"injunctions":
-			state.injunctions = int(apply_op(float(state.injunctions), effect))
-		"singularity":
-			state.singularity = apply_op(state.singularity, effect)
+			state.injunctions = maxi(int(apply_op(float(state.injunctions), effect)), 0)
 
-static func apply_to_era(effect: Dictionary, era_state: EraState, state: RunState) -> void:
+static func apply_to_era(effect: Dictionary, era_state: EraState, _state: RunState) -> void:
 	match effect.get("stat", ""):
 		"instability":
 			era_state.instability = clampf(apply_op(era_state.instability, effect), 0.0, 100.0)
 		"momentum":
 			era_state.momentum = apply_op(era_state.momentum, effect)
-		"singularity":
-			state.singularity += float(effect.get("value", 25.0))
 
 static func get_global_multiplier(stat: String, active_directives: Array) -> float:
 	var result := 1.0

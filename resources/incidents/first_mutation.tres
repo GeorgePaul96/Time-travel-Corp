@@ -1,0 +1,20 @@
+[gd_resource type="IncidentDef" format=3]
+
+[resource]
+id = &"first_mutation"
+trigger = &"first_mutation"
+weight = 1.0
+memo_text = "RE: Timeline Mutation Logged. One of our operational sectors has mutated. Relic extraction is active in mutated sectors, but cascade pressure is mounting."
+choices = [
+	{
+		"label": "Inject containment stabilizer (+1 Injunction, -50₵)",
+		"effects": [{"stat": "injunctions", "op": "add", "value": 1.0, "scope": "global"}, {"stat": "capital", "op": "add", "value": -50.0, "scope": "global"}],
+		"sets_flags": {}
+	},
+	{
+		"label": "Ride the waves (+100₵, +5 Singularity)",
+		"effects": [{"stat": "capital", "op": "add", "value": 100.0, "scope": "global"}, {"stat": "singularity", "op": "add", "value": 5.0, "scope": "global"}],
+		"sets_flags": {}
+	}
+]
+once_per_run = true

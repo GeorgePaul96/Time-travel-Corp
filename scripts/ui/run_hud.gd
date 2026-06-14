@@ -13,6 +13,7 @@ extends Control
 
 var _selected_front_uid: int = -1
 var _era_panels: Array = []
+var _selected_era_id: StringName = &"antiquity"
 
 const ERA_ORDER: Array[StringName] = [&"antiquity", &"middle_ages", &"industrial", &"future"]
 
@@ -26,6 +27,7 @@ func _ready() -> void:
 	EventBus.singularity_changed.connect(_on_singularity_changed)
 	EventBus.quarter_ended.connect(_on_quarter_ended)
 	EventBus.run_ended.connect(_on_run_ended)
+	EventBus.incident_triggered.connect(_on_incident_triggered)
 
 	pause_button.pressed.connect(_toggle_pause)
 	_setup_verb_buttons()
@@ -38,6 +40,20 @@ func _ready() -> void:
 			panel.setup(era_id)
 			_era_panels.append(panel)
 
+	# Rebuild view state that does not survive the per-quarter scene reload:
+	# tokens for fronts already in flight (MB-1), and an incident popup that
+	# was still open when the quarter boundary swapped scenes (MB-2).
+	var state := RunSim.get_state()
+	if state:
+		for front in state.fronts:
+			_on_front_spawned(front)
+		var active_inc: StringName = state.flags.get(&"active_incident_id", &"")
+		if active_inc != &"":
+			var inc := ContentDB.get_by_id(active_inc) as IncidentDef
+			if inc:
+				_on_incident_triggered(inc)
+
+	select_era(_selected_era_id)
 	_refresh_hud()
 
 func _setup_verb_buttons() -> void:
@@ -87,8 +103,7 @@ func _refresh_hud() -> void:
 	var state := RunSim.get_state()
 	if not state:
 		return
-	var contract := ContentDB.get_by_id(state.contract_id) as ContractDef
-	var quota := contract.quota if contract else 1.0
+	var quota := maxf(RunSim.get_contract_quota(), 1.0)
 
 	quota_bar.max_value = quota
 	quota_bar.value = state.capital
@@ -154,6 +169,11 @@ func _on_quarter_ended(_report: QuarterReport) -> void:
 func _on_run_ended(_result: Dictionary) -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/debrief.tscn")
 
+func _on_incident_triggered(incident: IncidentDef) -> void:
+	var popup: Control = load("res://scenes/run/incident_popup.tscn").instantiate()
+	add_child(popup)
+	popup.setup(incident)
+
 func _on_dampen() -> void:
 	if _selected_front_uid >= 0:
 		RunSim.dampen_front(_selected_front_uid)
@@ -170,13 +190,14 @@ func _on_restock() -> void:
 	RunSim.restock_injunctions()
 
 func _on_build(ext_type_id: StringName) -> void:
-	# Build in the first era that has enough capital; era selection via click in Phase 2
-	var state := RunSim.get_state()
-	if not state:
-		return
-	for es in state.eras:
-		if RunSim.place_extractor(es.era_id, ext_type_id):
-			return
+	if _selected_era_id != &"":
+		RunSim.place_extractor(_selected_era_id, ext_type_id)
+
+func select_era(era_id: StringName) -> void:
+	_selected_era_id = era_id
+	for panel in _era_panels:
+		if panel.has_method("set_selected"):
+			panel.set_selected(panel.era_id == _selected_era_id)
 
 func _toggle_pause() -> void:
 	if RunSim.get_phase() == RunSim.Phase.RUNNING:

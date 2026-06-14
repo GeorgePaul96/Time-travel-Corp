@@ -1,0 +1,20 @@
+[gd_resource type="IncidentDef" format=3]
+
+[resource]
+id = &"first_harvest"
+trigger = &"first_harvest"
+weight = 1.0
+memo_text = "RE: First Harvest Logged. The Board notes your extraction of timeline anomalies. Keep it up, but watch the ripple effects."
+choices = [
+	{
+		"label": "Acknowledge and proceed",
+		"effects": [{"stat": "capital", "op": "add", "value": 150.0, "scope": "global"}],
+		"sets_flags": {}
+	},
+	{
+		"label": "Request bonus liquidity",
+		"effects": [{"stat": "capital", "op": "add", "value": 300.0, "scope": "global"}, {"stat": "singularity", "op": "add", "value": 5.0, "scope": "global"}],
+		"sets_flags": {}
+	}
+]
+once_per_run = true

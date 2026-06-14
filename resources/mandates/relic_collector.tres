@@ -1,0 +1,7 @@
+[gd_resource type="MandateDef" format=3]
+
+[resource]
+id = &"relic_collector"
+display_name = "Relic Acquisition Mandate"
+reveal_text = "The Board hoped you would convert at least 5 Relics."
+anomaly_bonus = 15

@@ -1,0 +1,7 @@
+[gd_resource type="MandateDef" format=3]
+
+[resource]
+id = &"harvest_twice"
+display_name = "Aggressive Harvest Mandate"
+reveal_text = "The Board hoped you would harvest at least twice."
+anomaly_bonus = 15

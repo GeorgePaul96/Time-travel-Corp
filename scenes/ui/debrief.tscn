@@ -14,31 +14,33 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme_override_constants/separation = 15
 
 [node name="ResultLabel" type="Label" parent="VBox"]
 layout_mode = 2
-text = "DEBRIEF"
+theme_override_font_sizes/font_size = 24
+text = "DEBRIEFING IN PROGRESS"
+horizontal_alignment = 1
 
-[node name="CapitalLabel" type="Label" parent="VBox"]
+[node name="ReportLabel" type="RichTextLabel" parent="VBox"]
 layout_mode = 2
-text = ""
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Analyzing historical performance data..."
 
-[node name="QuotaLabel" type="Label" parent="VBox"]
+[node name="ExportSeedBtn" type="Button" parent="VBox"]
 layout_mode = 2
-text = ""
+text = "EXPORT TIMELINE SEED CODE"
 
-[node name="StatsLabel" type="Label" parent="VBox"]
+[node name="NavButtons" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
-text = ""
+alignment = 1
+theme_override_constants/separation = 20
 
-[node name="AnomalyLabel" type="Label" parent="VBox"]
-layout_mode = 2
-text = ""
-
-[node name="PlayAgainBtn" type="Button" parent="VBox"]
+[node name="PlayAgainBtn" type="Button" parent="NavButtons"]
 layout_mode = 2
 text = "NEW CONTRACT"
 
-[node name="MainMenuBtn" type="Button" parent="VBox"]
+[node name="MainMenuBtn" type="Button" parent="NavButtons"]
 layout_mode = 2
 text = "MAIN MENU"

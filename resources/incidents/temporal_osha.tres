@@ -1,0 +1,20 @@
+[gd_resource type="IncidentDef" format=3]
+
+[resource]
+id = &"temporal_osha"
+trigger = &"high_instability"
+weight = 1.0
+memo_text = "RE: RE: RE: Temporal OSHA Inquiry. Inspectors have flagged critical instability levels in one of your active sectors. They are requesting complete operational access."
+choices = [
+	{
+		"label": "Cooperate fully (sector yield -50%, freeze instability for 30s)",
+		"effects": [{"stat": "osha_cooperate", "op": "set", "value": 1.0, "scope": "global"}],
+		"sets_flags": {}
+	},
+	{
+		"label": "Shred everything (+120₵, +15 instability there, sets grudge flag)",
+		"effects": [{"stat": "capital", "op": "add", "value": 120.0, "scope": "global"}, {"stat": "osha_shred", "op": "set", "value": 1.0, "scope": "global"}],
+		"sets_flags": {}
+	}
+]
+once_per_run = true

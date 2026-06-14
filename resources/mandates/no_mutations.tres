@@ -1,0 +1,7 @@
+[gd_resource type="MandateDef" format=3]
+
+[resource]
+id = &"no_mutations"
+display_name = "Preservation Mandate"
+reveal_text = "The Board hoped you would preserve the timeline with 0 mutations."
+anomaly_bonus = 20

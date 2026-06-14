@@ -1,0 +1,20 @@
+[gd_resource type="IncidentDef" format=3]
+
+[resource]
+id = &"singularity_warning"
+trigger = &"singularity_50"
+weight = 1.0
+memo_text = "WARNING: Future sector singularity levels have crossed critical thresholds. The space-time topology is warping. Stabilizing action required."
+choices = [
+	{
+		"label": "Vent Heat (-15 Singularity, costs 200₵)",
+		"effects": [{"stat": "singularity", "op": "add", "value": -15.0, "scope": "global"}, {"stat": "capital", "op": "add", "value": -200.0, "scope": "global"}],
+		"sets_flags": {}
+	},
+	{
+		"label": "Ignore warning (+100₵, +5 Singularity)",
+		"effects": [{"stat": "capital", "op": "add", "value": 100.0, "scope": "global"}, {"stat": "singularity", "op": "add", "value": 5.0, "scope": "global"}],
+		"sets_flags": {}
+	}
+]
+once_per_run = true

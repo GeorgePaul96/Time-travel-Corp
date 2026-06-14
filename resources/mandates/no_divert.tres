@@ -1,0 +1,7 @@
+[gd_resource type="MandateDef" format=3]
+
+[resource]
+id = &"no_divert"
+display_name = "Straight Path Mandate"
+reveal_text = "The Board hoped you would complete the run without diverting any fronts."
+anomaly_bonus = 15

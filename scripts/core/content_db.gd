@@ -19,6 +19,7 @@ func load_all_content() -> void:
 		"res://resources/directives",
 		"res://resources/incidents",
 		"res://resources/modifiers",
+		"res://resources/mandates",
 	]
 
 	for dir_path in dirs:
@@ -34,7 +35,13 @@ func load_all_content() -> void:
 					var id = res.id
 					if id != &"" and id != "":
 						_registry[id] = res
-						var type_name := res.get_class()
+						var type_name := ""
+						var script := res.get_script() as Script
+						if script:
+							type_name = script.get_global_name()
+						if type_name == "":
+							type_name = res.get_class()
+						
 						if not _type_index.has(type_name):
 							_type_index[type_name] = []
 						_type_index[type_name].append(res)
